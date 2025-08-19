@@ -2,7 +2,7 @@ name: Expo EAS CI/CD
 
 on:
   push:
-    branches: [master] # триггерим сборку на пуш в main
+    branches: [master] # триггерим сборку на пуш в master
 
 jobs:
   build:
@@ -21,14 +21,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 4. Логинимся в Expo
-      - name: Authenticate with Expo
-        run: npx expo login --token ${{ secrets.EXPO_TOKEN }}
-
-      # 5. Сборка
+      # 4. Сборка (без expo login)
       - name: EAS Build
         run: npx eas build --platform all --profile preview --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
-      # 6. Публикация OTA (горячее обновление)
+      # 5. Публикация OTA (горячее обновление)
       - name: OTA Update
         run: npx eas update --branch main --message "Auto update from CI"
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
