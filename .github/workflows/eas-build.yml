@@ -19,14 +19,11 @@ jobs:
 
       # 3. Ставим зависимости
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       # 4. Логинимся в Expo
       - name: Expo login
         run: npx expo login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
-
-      # (опция) Если используешь токен
-      # run: npx expo login --token ${{ secrets.EXPO_TOKEN }}
 
       # 5. Сборка
       - name: EAS Build
