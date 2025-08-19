@@ -16,6 +16,7 @@
       }
     },
     "android": {
+      "package": "com.andrzejslobodianyk.test",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
