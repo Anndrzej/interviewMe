@@ -2,7 +2,7 @@ name: Expo EAS CI/CD
 
 on:
   push:
-    branches: [master] # триггерим сборку на пуш в main
+    branches: [main] # триггерим сборку на пуш в main
 
 jobs:
   build:
@@ -15,15 +15,15 @@ jobs:
       # 2. Ставим Node.js
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18
 
       # 3. Ставим зависимости
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       # 4. Логинимся в Expo
-      - name: Expo login
-        run: npx expo login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
+      - name: Authenticate with Expo
+        run: npx expo login --token ${{ secrets.EXPO_TOKEN }}
 
       # 5. Сборка
       - name: EAS Build
