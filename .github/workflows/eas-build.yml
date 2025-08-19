@@ -1,8 +1,10 @@
-name: Expo EAS CI/CD
+name: Expo CI
 
 on:
   push:
     branches: [master] # триггерим сборку на пуш в master
+  pull_request:
+    branches: [master] # триггерим на PR в master
 
 jobs:
   build:
@@ -17,18 +19,14 @@ jobs:
         with:
           node-version: 20
 
-      # 3. Ставим зависимости
+      # 3. Устанавливаем зависимости
       - name: Install dependencies
         run: npm install
 
-      # 4. Сборка (без expo login)
-      - name: EAS Build
-        run: npx eas build --platform all --profile preview --non-interactive
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      # 4. Прогоняем линтер
+      - name: Lint
+        run: npm run lint
 
-      # 5. Публикация OTA (горячее обновление)
-      - name: OTA Update
-        run: npx eas update --branch main --message "Auto update from CI"
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      # 5. Прогоняем тесты
+      - name: Run tests
+        run: npm test
