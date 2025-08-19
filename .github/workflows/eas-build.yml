@@ -2,7 +2,7 @@ name: Expo EAS CI/CD
 
 on:
   push:
-    branches: [main] # триггерим сборку на пуш в main
+    branches: [master] # триггерим сборку на пуш в main
 
 jobs:
   build:
